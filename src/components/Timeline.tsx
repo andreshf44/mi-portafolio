@@ -44,8 +44,8 @@ const items = [
 ];
 
 export const Timeline = () => {
-  const ref = useRef(null);
   const [progress, setProgress] = useState(0);
+  const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
