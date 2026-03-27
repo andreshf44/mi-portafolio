@@ -49,6 +49,7 @@ export const Timeline = () => {
 
   useEffect(() => {
     const handleScroll = () => {
+      if (!ref.current) return; // 🔥 evita el crash
       const rect = ref.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       
