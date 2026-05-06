@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export const Projects = () => {
     return (
-      <section className="py-20 px-6 md:px-12">
+      <section id="projects" className="py-20 px-6 md:px-12">
         <h2 className="text-3xl md:text-4xl font-semibold mb-10">Mis proyectos</h2>
   
         <div className="grid gap-6 md:grid-cols-2">

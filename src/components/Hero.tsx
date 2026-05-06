@@ -20,7 +20,7 @@ export const Hero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
-          className="mt-4 text-lg text-muted max-w-md"
+          className="mt-4 text-lg font-semibold text-[23px] text-blue-700"
         >
           Construyo interfaces claras, rápidas y pensadas para personas.
         </motion.p>
@@ -31,11 +31,11 @@ export const Hero = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.98 }}
           transition={{ delay: 0.4, duration: 0.6 }}
-          className="mt-6 px-5 py-2 bg-primary text-white rounded-lg hover:opacity-90 transition inline-block"
+          className="mt-6 px-5 py-2 bg-[#6c4cef] text-white rounded-lg hover:opacity-90 transition inline-block cursor-pointer"
         >
           Ver proyectos
         </motion.button>
-        <div className="mt-20">
+        <div>
           <Timeline />
         </div>
       </div>

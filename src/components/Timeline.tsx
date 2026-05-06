@@ -5,8 +5,8 @@ const items = [
     title: "Front-end Developer",
     company: "BPO",
     date: "2024 - Actualidad",
-    x: 100,
-    y: 80,
+    x: 9,
+    y: 18,
     color: "#7C5CFF",
   },
   {
@@ -76,10 +76,12 @@ export const Timeline = () => {
 
           {/* base */}
           <path
-            d="M120 80 
-            C200 140, 240 200, 260 260 
-            S200 380, 140 440 
-            S220 600, 180 760"
+            d="
+            M11 22 
+            C50 120, 150 150, 250 100  
+            S450 11, 550 100
+            S700 100, 900 50         
+            "
             fill="none"
             stroke="#ddd"
             strokeWidth="3"
@@ -87,10 +89,12 @@ export const Timeline = () => {
 
           {/* animada */}
           <path
-            d="M120 80 
-            C200 140, 240 200, 260 260 
-            S200 380, 140 440 
-            S220 600, 180 760"
+            d="
+            M11 22 
+            C50 120, 150 150, 250 100  
+            S450 11, 550 100
+            S700 100, 900 50         
+            "
             fill="none"
             stroke="url(#gradient)"
             strokeWidth="2"
@@ -121,7 +125,7 @@ export const Timeline = () => {
           return (
             <div
               key={index}
-              className={`absolute transition-all duration-700 ${
+              className={`absolute transition-all duration-700 flex ${
                 visible
                   ? "opacity-100 translate-y-0 scale-100"
                   : "opacity-0 translate-y-10 scale-75"
@@ -129,7 +133,7 @@ export const Timeline = () => {
               style={{ top: item.y, left: item.x }}
             >
               <div
-                className={`w-2 h-2 rounded-full mb-2 transition-all duration-500 ${
+                className={`w-2 h-2 rounded-full transition-all duration-500 ${
                     visible ? "scale-100" : "scale-0"
                 }`}
                 style={{
@@ -137,16 +141,66 @@ export const Timeline = () => {
                     boxShadow: visible ? `0 0 12px ${item.color}` : "none",
                 }}
               />
-
-              <div className="bg-card p-3 rounded-xl shadow-lg w-[200px]">
-                <p className="text-xs text-accent">{item.date}</p>
-                <p className="font-semibold text-text">{item.title}</p>
-                <p className="text-xs text-muted">{item.company}</p>
+              <div>
+                <p className="text-xs text-accent ml-2">{item.date}</p>
+                <div className="bg-card p-3 rounded-xl shadow-lg w-[200px]">
+                  <p className="font-semibold text-text">{item.title}</p>
+                  <p className="text-xs text-muted">{item.company}</p>
+                </div>
               </div>
             </div>
           );
         })}
       </div>
+      <div className="hidden md:block w-full overflow-x-auto">
+  <div className="relative flex items-center gap-32 px-20 min-w-[900px] h-[300px]">
+    
+    {/* línea base */}
+    <div className="absolute top-1/2 left-0 w-full h-[2px] bg-gray-300" />
+
+    {/* línea animada */}
+    <div
+      className="absolute top-1/2 left-0 h-[2px] bg-gradient-to-r from-[#7C5CFF] via-[#FF8CDA] to-[#22c55e]"
+      style={{
+        width: `${progress * 100}%`,
+        boxShadow: "0 0 8px #7C5CFF",
+      }}
+    />
+
+    {items.map((item, index) => {
+      const total = items.length;
+      const segment = 1 / total;
+      const visible = progress > index * segment;
+
+      return (
+        <div
+          key={index}
+          className={`relative flex flex-col items-center transition-all duration-700 ${
+            visible
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-10"
+          }`}
+        >
+          {/* punto */}
+          <div
+            className="w-3 h-3 rounded-full mb-4"
+            style={{
+              background: item.color,
+              boxShadow: visible ? `0 0 10px ${item.color}` : "none",
+            }}
+          />
+
+          {/* card */}
+          <div className="bg-card p-3 rounded-xl shadow-lg w-[200px] text-center">
+            <p className="text-xs text-accent">{item.date}</p>
+            <p className="font-semibold text-text">{item.title}</p>
+            <p className="text-xs text-muted">{item.company}</p>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</div>
 
       {/* 📱 MOBILE */}
       <div className="md:hidden flex flex-col gap-8 pl-6 border-l-2 border-muted">
