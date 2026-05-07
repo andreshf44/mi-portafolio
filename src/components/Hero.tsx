@@ -6,7 +6,7 @@ export const Hero = () => {
   return (
     <section id="hero" className="justify-between min-h-screen flex px-6 md:px-12 pt-20 bg-hero-gradient bg-opacity-10">
       
-      <div className="max-w-3xl">
+      <div>
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -41,12 +41,11 @@ export const Hero = () => {
       </div>
 
         {/* Imagen */}
-      <div>
+      <div className="pt-6 absolute right-18">
         <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="w-full md:w-1/2 flex justify-center"
         >
             <img
             src={heroImage}

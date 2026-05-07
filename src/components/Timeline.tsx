@@ -5,41 +5,45 @@ const items = [
     title: "Front-end Developer",
     company: "BPO",
     date: "2024 - Actualidad",
-    x: 9,
-    y: 18,
-    color: "#7C5CFF",
+    x: 6,
+    y: 33,
+    color: "#bbf469",
   },
   {
     title: "Front-end Developer",
     company: "WebClass",
     date: "2023 - 2024",
-    x: 260,
-    y: 240,
+    x: 0,
+    y: 205,
     color: "#FF8CDA",
+    flexDirection: "row-reverse" as const,
   },
   {
     title: "Práctica Universitaria",
     company: "Banco Itau",
     date: "2023",
-    x: 120,
-    y: 400,
+    x: 373,
+    y: 242,
     color: "#e3ca80",
+    alginItems: "flex-end",
   },
   {
     title: "Ingeniería en informática",
     company: "UDP",
     date: "2020 - 2024",
-    x: 260,
-    y: 580,
+    x: 370,
+    y: 430,
     color: "#22c55e",
+    flexDirection: "row-reverse" as const,
   },
   {
     title: "Técnico programación",
     company: "UDP",
     date: "2020 - 2021",
-    x: 140,
-    y: 760,
+    x: 700,
+    y: 505,
     color: "#f97316",
+    alginItems: "center",
   },
 ];
 
@@ -77,10 +81,10 @@ export const Timeline = () => {
           {/* base */}
           <path
             d="
-            M11 22 
-            C50 120, 150 150, 250 100  
-            S450 11, 550 100
-            S700 100, 900 50         
+              M11 22 
+              C80 140, 180 220, 280 260  
+              S500 380, 650 500
+              S800 650, 950 780
             "
             fill="none"
             stroke="#ddd"
@@ -90,10 +94,10 @@ export const Timeline = () => {
           {/* animada */}
           <path
             d="
-            M11 22 
-            C50 120, 150 150, 250 100  
-            S450 11, 550 100
-            S700 100, 900 50         
+              M11 22 
+              C80 140, 180 220, 280 260  
+              S500 380, 650 500
+              S800 650, 950 780
             "
             fill="none"
             stroke="url(#gradient)"
@@ -125,12 +129,12 @@ export const Timeline = () => {
           return (
             <div
               key={index}
-              className={`absolute transition-all duration-700 flex ${
+              className={`gap-1.5 absolute transition-all duration-700 flex ${
                 visible
                   ? "opacity-100 translate-y-0 scale-100"
                   : "opacity-0 translate-y-10 scale-75"
               }`}
-              style={{ top: item.y, left: item.x }}
+              style={{ top: item.y, left: item.x, flexDirection: item.flexDirection, alignItems: item.alginItems }}
             >
               <div
                 className={`w-2 h-2 rounded-full transition-all duration-500 ${
@@ -142,8 +146,8 @@ export const Timeline = () => {
                 }}
               />
               <div>
-                <p className="text-xs text-accent ml-2">{item.date}</p>
-                <div className="bg-card p-3 rounded-xl shadow-lg w-[200px]">
+                <p className="pl-1.5 text-xs text-accent">{item.date}</p>
+                <div className="bg-card p-3 rounded-xl shadow-lg w-[auto]">
                   <p className="font-semibold text-text">{item.title}</p>
                   <p className="text-xs text-muted">{item.company}</p>
                 </div>
