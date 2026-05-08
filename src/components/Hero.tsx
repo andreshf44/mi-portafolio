@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import heroImage from "../assets/hero-img.png"; 
 import { Timeline } from "./Timeline";
 
 export const Hero = () => {
+  const [showTimeline, setShowTimeline] = useState(false);
   return (
     <section id="hero" className="justify-between min-h-screen flex px-6 md:px-12 pt-20 bg-hero-gradient bg-opacity-10">
       
@@ -26,6 +28,7 @@ export const Hero = () => {
         </motion.p>
 
         <motion.button
+          onClick={() => setShowTimeline(!showTimeline)}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           whileHover={{ scale: 1.05 }}
@@ -33,11 +36,11 @@ export const Hero = () => {
           transition={{ delay: 0.4, duration: 0.6 }}
           className="mt-6 px-5 py-2 bg-[#6c4cef] text-white rounded-lg hover:opacity-90 transition inline-block cursor-pointer"
         >
-          Ver proyectos
+          {showTimeline ? "Ocultar trayctoria" : "Ver trayectoria"}
         </motion.button>
-        <div>
-          <Timeline />
-        </div>
+        {showTimeline && (
+          <Timeline key={showTimeline.toString()} />
+        )}
       </div>
 
         {/* Imagen */}
