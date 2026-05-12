@@ -6,9 +6,9 @@ import { Timeline } from "./Timeline";
 export const Hero = () => {
   const [showTimeline, setShowTimeline] = useState(false);
   return (
-    <section id="hero" className="justify-between min-h-screen flex px-6 md:px-12 pt-20 bg-hero-gradient bg-opacity-10">
+    <section id="hero" className="h-[970px] justify-between min-h-screen flex px-6 md:px-12 pt-20 bg-hero-gradient bg-opacity-10">
       
-      <div>
+      <div className="flex-1">
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -22,7 +22,7 @@ export const Hero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
-          className="mt-4 text-lg font-semibold text-[23px] text-blue-700"
+          className="mt-4 text-lg font-semibold text-[23px] text-[#5c42c4]"
         >
           Construyo interfaces claras, rápidas y pensadas para personas.
         </motion.p>
@@ -43,12 +43,12 @@ export const Hero = () => {
         )}
       </div>
 
-        {/* Imagen */}
-      <div className="pt-6 absolute right-18">
+      {/* Imagen */}
+      <div className="hidden md:block pt-6">
         <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
         >
             <img
             src={heroImage}
@@ -56,7 +56,7 @@ export const Hero = () => {
             className="max-w-xs md:max-w-md rounded-xl shadow-lg"
             />
         </motion.div>
-        </div>
+      </div>
 
     </section>
   );

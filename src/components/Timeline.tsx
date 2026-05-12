@@ -8,6 +8,7 @@ const items = [
     x: 6,
     y: 33,
     color: "#bbf469",
+    description:"Mi trabajo incluye el desarrollo de interfaces utilizando Ruby en un entorno de consola virtual Linux. Manejo el código a través de Git mediante Bitbucket y utilizo Visual Studio Code para la edición y depuración. Mi enfoque está en crear experiencias de usuario intuitivas y eficientes mientras colaboro con el equipo para integrar las mejores prácticas de desarrollo front-end."      
   },
   {
     title: "Front-end Developer",
@@ -17,6 +18,7 @@ const items = [
     y: 195,
     color: "#FF8CDA",
     flexDirection: "row-reverse" as const,
+    description:"Como Desarrollador Front-end, me especialicé en el diseño y la optimización de interfaces gráficas. Mis responsabilidades incluían la corrección y mejora de código CSS, así como la creación y mejora de funciones utilizando JavaScript.También me encargué de la optimización de templates HTML y PHP. Utilicé herramientas como Visual Studio Code para el desarrollo y trabajé con frameworks como Laravel, Vanilla y Vue. Además, gestioné el control de versiones utilizando Git a través de Bitbucket y colaboré en la metodología de trabajo por medio de la herramienta Jira."
   },
   {
     title: "Práctica Universitaria",
@@ -26,6 +28,7 @@ const items = [
     y: 242,
     color: "#e3ca80",
     alginItems: "flex-end",
+    description:"Durante mi práctica profesional en Itaú, en el área de Crédito Inmobiliario y Construcción, colaboré en diversas tareas. Utilicé ETL para el procesamiento de datos de Excel, creé informes usando herramientas como Excel y Power BI para la generación de dashboards. Además, participé en la automatización de procesos de ingesta de datos para mejorar la eficiencia del área.  "
   },
   {
     title: "Ingeniería en informática",
@@ -35,6 +38,7 @@ const items = [
     y: 440,
     color: "#d4229b",
     flexDirection: "row-reverse" as const,
+    pdf: "/certificado-Titulo.pdf",
   },
   {
     title: "Técnico programación",
@@ -44,11 +48,15 @@ const items = [
     y: 505,
     color: "#0cc125",
     alginItems: "flex-end",
+    pdf: "/certificado-tecnico.pdf",
   },
 ];
 
+
+
 export const Timeline = () => {
   const [progress, setProgress] = useState(0);
+  const [selectedItem, setSelectedItem] = useState<(typeof items)[0] | null>(null);
 
   useEffect(() => {
     let start = 0;
@@ -68,7 +76,7 @@ export const Timeline = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-[900px]">
+    <div className="relative w-full h-[680px]">
 
       {/* 🖥 DESKTOP */}
       <div className="hidden md:block w-full h-full">
@@ -150,66 +158,49 @@ export const Timeline = () => {
               />
               <div>
                 <p className="pl-1.5 text-xs text-accent">{item.date}</p>
-                <div className="bg-card p-3 rounded-xl shadow-lg w-[auto]">
+                <div
+                  onClick={() => {
+                    if (item.pdf) {
+                      window.open(item.pdf, "_blank");
+                    } else {
+                      setSelectedItem(item);
+                    }
+                  }}
+                  className="
+                    bg-card
+                    p-3
+                    rounded-xl
+                    shadow-lg
+                    w-auto
+                    cursor-pointer
+                    transition-all
+                    duration-300
+                    hover:scale-105
+                    hover:-translate-y-1
+                    hover:shadow-[0_10px_30px_rgba(255,140,218,0.25)]
+                  "
+                >
                   <p className="font-semibold text-text">{item.title}</p>
-                  <p className="text-xs text-muted">{item.company}</p>
+                  <div className="flex items-baseline justify-between">
+                    <p className="text-xs text-muted">{item.company}</p>
+                    {item.pdf && (
+                      <p className="text-[11px] text-primary mt-1">
+                        Ver certificado →
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
           );
+          
         })}
+        
       </div>
-      <div className="hidden md:block w-full overflow-x-auto">
-        <div className="relative flex items-center gap-32 px-20 min-w-[900px] h-[300px]">
-          {/* línea base */}
-          <div className="absolute top-1/2 left-0 w-full h-[2px] bg-gray-300" />
-
-          {/* línea animada */}
-          <div
-            className="absolute top-1/2 left-0 h-[2px] bg-gradient-to-r from-[#7C5CFF] via-[#FF8CDA] to-[#22c55e]"
-            style={{
-              width: `${progress * 100}%`,
-              boxShadow: "0 0 8px #7C5CFF",
-            }}
-          />
-
-          {items.map((item, index) => {
-            const total = items.length;
-            const segment = 1 / total;
-            const visible = progress > index * segment;
-
-            return (
-              <div
-                key={index}
-                className={`relative flex flex-col items-center transition-all duration-700 ${
-                  visible
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-10"
-                }`}
-              >
-                {/* punto */}
-                <div
-                  className="w-3 h-3 rounded-full mb-4"
-                  style={{
-                    background: item.color,
-                    boxShadow: visible ? `0 0 10px ${item.color}` : "none",
-                  }}
-                />
-
-                {/* card */}
-                <div className="bg-card p-3 rounded-xl shadow-lg w-[200px] text-center">
-                  <p className="text-xs text-accent">{item.date}</p>
-                  <p className="font-semibold text-text">{item.title}</p>
-                  <p className="text-xs text-muted">{item.company}</p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+   
 
       {/* 📱 MOBILE */}
-      <div className="md:hidden flex flex-col gap-8 pl-6 border-l-2 border-muted">
+      <div className="md:hidden flex flex-col gap-8 pl-6 border-l-2 border-muted mt-5">
         {items.map((item, index) => (
           <div key={index} className="relative">
             <div
@@ -220,14 +211,87 @@ export const Timeline = () => {
               }}
             />
 
-            <div className="bg-card p-3 rounded-xl shadow-md">
+            <div
+              onClick={() => {
+                if (item.pdf) {
+                  window.open(item.pdf, "_blank");
+                } else {
+                  setSelectedItem(item);
+                }
+              }}
+              className="
+                bg-card
+                p-3
+                w-[80%]
+                rounded-xl
+                shadow-md
+                cursor-pointer
+                transition-all
+                duration-300
+                active:scale-95
+              "
+            >
               <p className="text-xs text-accent">{item.date}</p>
               <p className="font-semibold text-text">{item.title}</p>
-              <p className="text-xs text-muted">{item.company}</p>
+              
+              <div className="flex items-baseline justify-between ">
+                <p className="text-xs text-muted">{item.company}</p>
+                <button className="text-xs font-medium text-[#5c42c4]">
+                  {item.pdf
+                    ? "Ver certificado →"
+                    : "Ver más →"}
+                </button>
+              </div>
             </div>
           </div>
         ))}
       </div>
+
+      {/*Modal descripcion CV*/}
+      {selectedItem && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+            onClick={() => setSelectedItem(null)}
+          >
+            <div
+              className="
+                bg-card
+                rounded-2xl
+                p-8
+                w-[90%]
+                max-w-lg
+                shadow-2xl
+                relative
+                animate-in
+              "
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* cerrar */}
+              <button
+                onClick={() => setSelectedItem(null)}
+                className="absolute top-4 right-4 text-xl cursor-pointer"
+              >
+                cerrar
+              </button>
+
+              <p className="text-sm text-accent mb-2">
+                {selectedItem.date}
+              </p>
+
+              <h2 className="text-2xl font-semibold text-text">
+                {selectedItem.title}
+              </h2>
+
+              <p className="text-muted mb-6">
+                {selectedItem.company}
+              </p>
+
+              <p className="text-text leading-relaxed">
+                {selectedItem.description}
+              </p>
+            </div>
+          </div>
+      )}
     </div>
   );
 };
