@@ -26,7 +26,8 @@ export const Hero = () => {
         >
           Construyo interfaces claras, rápidas y pensadas para personas.
         </motion.p>
-
+        
+        {/* botón SOLO desktop */}
         <motion.button
           onClick={() => setShowTimeline(!showTimeline)}
           initial={{ opacity: 0, y: 30 }}
@@ -34,13 +35,18 @@ export const Hero = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.98 }}
           transition={{ delay: 0.4, duration: 0.6 }}
-          className="mt-6 px-5 py-2 bg-[#6c4cef] text-white rounded-lg hover:opacity-90 transition inline-block cursor-pointer"
+          className="hidden md:inline-block mt-6 px-5 py-2 bg-[#6c4cef] text-white rounded-lg hover:opacity-90 transition cursor-pointer"
         >
           {showTimeline ? "Ocultar trayctoria" : "Ver trayectoria"}
         </motion.button>
         {showTimeline && (
           <Timeline key={showTimeline.toString()} />
         )}
+
+        {/* MOBILE → siempre visible */}
+        <div className="md:hidden">
+          <Timeline />
+        </div>
       </div>
 
       {/* Imagen */}
@@ -50,11 +56,11 @@ export const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-            <img
+          <img
             src={heroImage}
             alt="Hero ilustración"
             className="max-w-xs md:max-w-md rounded-xl shadow-lg"
-            />
+          />
         </motion.div>
       </div>
 

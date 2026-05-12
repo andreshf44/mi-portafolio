@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const items = [
   {
@@ -27,7 +28,7 @@ const items = [
     x: 373,
     y: 242,
     color: "#e3ca80",
-    alginItems: "flex-end",
+    alignItems: "flex-end",
     description:"Durante mi práctica profesional en Itaú, en el área de Crédito Inmobiliario y Construcción, colaboré en diversas tareas. Utilicé ETL para el procesamiento de datos de Excel, creé informes usando herramientas como Excel y Power BI para la generación de dashboards. Además, participé en la automatización de procesos de ingesta de datos para mejorar la eficiencia del área.  "
   },
   {
@@ -47,7 +48,7 @@ const items = [
     x: 730,
     y: 505,
     color: "#0cc125",
-    alginItems: "flex-end",
+    alignItems: "flex-end",
     pdf: "/certificado-tecnico.pdf",
   },
 ];
@@ -145,7 +146,7 @@ export const Timeline = () => {
                   ? "opacity-100 scale-100"
                   : "opacity-0 scale-90"
               }`}
-              style={{ top: item.y, left: item.x, flexDirection: item.flexDirection, alignItems: item.alginItems }}
+              style={{ top: item.y, left: item.x, flexDirection: item.flexDirection, alignItems: item.alignItems }}
             >
               <div
                 className={`w-2 h-2 rounded-full transition-all duration-500 ${
@@ -200,11 +201,28 @@ export const Timeline = () => {
    
 
       {/* 📱 MOBILE */}
-      <div className="md:hidden flex flex-col gap-8 pl-6 border-l-2 border-muted mt-5">
+      <div className="md:hidden flex flex-col gap-8 border-l-2 border-muted mt-5">
         {items.map((item, index) => (
-          <div key={index} className="relative">
+          <motion.div
+            key={index} initial={{
+              opacity: 0,
+              x: -30,
+              scale: 0.95,
+            }}
+            animate={{
+              opacity: 1,
+              x: 0,
+              scale: 1,
+            }}
+            transition={{
+              duration: 0.5,
+              delay: index * 0.18,
+              ease: "easeOut",
+            }}
+            className="relative flex pl-2"
+          >
             <div
-              className="absolute -left-[9px] top-1 w-4 h-4 rounded-full"
+              className="w-4 h-4 rounded-full mr-2.5"
               style={{
                 background: item.color,
                 boxShadow: `0 0 8px ${item.color}`,
@@ -243,7 +261,7 @@ export const Timeline = () => {
                 </button>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
@@ -253,25 +271,37 @@ export const Timeline = () => {
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
             onClick={() => setSelectedItem(null)}
           >
-            <div
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.25 }}
               className="
                 bg-card
                 rounded-2xl
                 p-8
                 w-[90%]
                 max-w-lg
+                max-h-[80vh]
+                overflow-y-auto
                 shadow-2xl
                 relative
-                animate-in
               "
-              onClick={(e) => e.stopPropagation()}
             >
               {/* cerrar */}
               <button
                 onClick={() => setSelectedItem(null)}
-                className="absolute top-4 right-4 text-xl cursor-pointer"
+                className="
+                  absolute
+                  top-4
+                  right-4
+                  text-sm
+                  text-muted
+                  hover:text-text
+                  transition
+                  cursor-pointer
+                "
               >
-                cerrar
+                ✕
               </button>
 
               <p className="text-sm text-accent mb-2">
@@ -289,8 +319,9 @@ export const Timeline = () => {
               <p className="text-text leading-relaxed">
                 {selectedItem.description}
               </p>
-            </div>
+            </motion.div>
           </div>
+          
       )}
     </div>
   );
